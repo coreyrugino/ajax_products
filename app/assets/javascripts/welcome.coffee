@@ -5,15 +5,14 @@
 $(document).ready ->
   baseUrl = "http://devpoint-ajax-example-server.herokuapp.com/api/v1/products/"
 
-  addToList = (id, name) ->
+  addToList = (product) ->
     $.ajax '/product_template',
       type: 'GET'
       data:
-        id: id
-        name: name
+        product: product
       dataType: 'HTML'
       success: (data) ->
-        $('product_list').append(data)
+        $('#product_list').append(data)
       error: (data) ->
         console.log(data)
 
@@ -22,7 +21,12 @@ $(document).ready ->
     $.ajax "#{baseUrl}",
       type: 'GET'
       success: (data) ->
-        alert('You did it!')
+        debugger
+        if data.products.length
+          for product in data.products
+            addToList product
+        else
+          alert('No products')
       error: (data) ->
         alert('You did not do it!')
 
