@@ -18,10 +18,10 @@ $(document).ready ->
 
   loadProduct = ->
     $('#product_list').children().remove()
-    $.ajax "#{baseUrl}",
+    $.ajax baseUrl,
       type: 'GET'
       success: (data) ->
-        debugger
+
         if data.products.length
           for product in data.products
             addToList product
@@ -31,3 +31,14 @@ $(document).ready ->
         alert('You did not do it!')
 
   loadProduct()
+
+  $('#create_product').on 'submit', (e) ->
+    e.preventDefault()
+    $.ajax baseUrl,
+      type: 'POST'
+      data: $(@).serializeArray()
+      success: (data) ->
+        addToList(data.product)
+        $("#create_product")[0].reset()
+      error: (data) ->
+        alert('Not Created')
