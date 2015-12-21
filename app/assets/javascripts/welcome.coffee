@@ -42,3 +42,14 @@ $(document).ready ->
         $("#create_product")[0].reset()
       error: (data) ->
         alert('Not Created')
+
+  $(document).on 'click', '.product_delete', ->
+    parent = $(@).parent()
+    productId = $(this).attr('id')
+    $.ajax baseUrl + productId,
+      type: 'DELETE'
+      success: (data) ->
+        parent.slideToggle()
+      error: (data) ->
+        alert('did not delete')
+        
