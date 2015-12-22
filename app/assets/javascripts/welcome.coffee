@@ -12,7 +12,8 @@ $(document).ready ->
         product: product
       dataType: 'HTML'
       success: (data) ->
-        $('#product_list').append(data)
+        if product.quanity_on_hand > 0
+          $('#product_list').append(data)
       error: (data) ->
         console.log(data)
 
@@ -21,7 +22,6 @@ $(document).ready ->
     $.ajax baseUrl,
       type: 'GET'
       success: (data) ->
-
         if data.products.length
           for product in data.products
             addToList product
@@ -74,7 +74,7 @@ $(document).ready ->
   $(document).on 'submit', '.edit_product', (e) ->
     e.preventDefault()
     form = $(@)
-    productId = $(@).siblings('button:last').attr('id')
+    productId = $(@).siblings('p:last').attr('id')
     $.ajax baseUrl + productId,
       type: 'PUT'
       data: $(@).serializeArray()
@@ -82,7 +82,25 @@ $(document).ready ->
         form.addClass('hide')
         loadProduct()
       error: (data) ->
-        alert(data + "This is why the submit edit failed")
+        alert("submit edit failed")
 
   $(document).on 'click', '#toggle_create_form', ->
     $(this).siblings('form').removeClass('hide')
+
+    # data: {product:{
+    #   quanity_on_hand: 21-1
+    # }}
+  # doesnt work, hits error 
+  $(document).on 'click', '.product_buy', ->
+    quanityOfProduct = $(this).siblings('.quanity_display').attr('data-quanity')
+    newQuanity = parseInt(quanityOfProduct) - 1
+    productId = $(@).attr('id')
+    $.ajax baseUrl + productId,
+      type: 'PUT'
+      data:
+        quanity_on_hand: newQuanity
+      debugger
+      success: (data) ->
+        alert('success buy')
+      error: (data) ->
+        alert('Failed to buy')

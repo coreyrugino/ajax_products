@@ -1,8 +1,13 @@
-<li>
+<div class="col s3 card large hoverable">
   <h4><%= @product[:name] %></h4>
-  <p><%= @product[:color] %></p>
-  <button class='product_delete' id='<%= @product[:id] %>'>Delete</button>
-  <button class='product_edit' id="<%= @product[:id] %>">Edit</button>
+  <p>Base Price: <%= @product[:base_price] %></p>
+  <p>Description: <%= @product[:description] %></p>
+  <p class="quanity_display" data-quanity="<%= @product[:quanity_on_hand] %>">Quantity: <%= @product[:quanity_on_hand] %></p>
+  <p>Color: <%= @product[:color] %></p>
+  <p>Weight: <%= @product[:weight] %></p>
+  <p class="product_buy btn" id="<%= @product[:id] %>">Buy</p>
+  <p class='product_delete btn' id='<%= @product[:id] %>'>Delete</p>
+  <p class='product_edit btn' id="<%= @product[:id] %>">Edit</p>
 
   <form class="edit_product hide">
     <label>Name</label>
@@ -23,6 +28,6 @@
     <label>Weight</label>
     <input type="text" name="product[weight]" class="edit_product_weight" />
     <br />
-    <input type="submit" />
+    <input type="submit" class="btn" />
   </form>
-</li>
+</div>
