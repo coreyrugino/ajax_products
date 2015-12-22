@@ -34,12 +34,14 @@ $(document).ready ->
 
   $('#create_product').on 'submit', (e) ->
     e.preventDefault()
+    form = $(@)
     $.ajax baseUrl,
       type: 'POST'
       data: $(@).serializeArray()
       success: (data) ->
         addToList(data.product)
         $("#create_product")[0].reset()
+        form.addClass('hide')
       error: (data) ->
         alert('Not Created')
 
@@ -68,3 +70,19 @@ $(document).ready ->
         editForm.children('.edit_product_weight').val(data.product.weight)
       error: (data) ->
         alert('failure')
+
+  $(document).on 'submit', '.edit_product', (e) ->
+    e.preventDefault()
+    form = $(@)
+    productId = $(@).siblings('button:last').attr('id')
+    $.ajax baseUrl + productId,
+      type: 'PUT'
+      data: $(@).serializeArray()
+      success: (data) ->
+        form.addClass('hide')
+        loadProduct()
+      error: (data) ->
+        alert(data + "This is why the submit edit failed")
+
+  $(document).on 'click', '#toggle_create_form', ->
+    $(this).siblings('form').removeClass('hide')

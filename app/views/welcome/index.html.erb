@@ -1,8 +1,9 @@
 <h1>Product List</h1>
 
 <h3>Create an Item</h3>
-
-<form id="create_product">
+<div>
+<button id="toggle_create_form">Create a Product</button>
+<form id="create_product" class="hide">
   <label>Name</label>
   <input type="text" name="product[name]" id="new_product_name" />
   <br />
@@ -23,7 +24,7 @@
   <br />
   <input type="submit" />
 </form>
-
+</div>
 <hr />
 <ul id='product_list'>
 
