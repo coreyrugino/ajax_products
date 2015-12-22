@@ -2,4 +2,27 @@
   <h4><%= @product[:name] %></h4>
   <p><%= @product[:color] %></p>
   <button class='product_delete' id='<%= @product[:id] %>'>Delete</button>
+  <button class='product_edit' id="<%= @product[:id] %>">Edit</button>
+
+  <form class="edit_product hide">
+    <label>Name</label>
+    <input type="text" name="product[name]" class="edit_product_name" />
+    <br />
+    <label>Description</label>
+    <input type="text" name="product[description]" class="edit_product_description" />
+    <br />
+    <label>Base Price</label>
+    <input type="text" name="product[base_price]" class="edit_product_base_price" />
+    <br />
+    <label>Quantity on Hand</label>
+    <input type="text" name="product[quanity_on_hand]" class="edit_product_quanity_on_hand" />
+    <br />
+    <label>Color</label>
+    <input type="text" name="product[color]" class="edit_product_color" />
+    <br />
+    <label>Weight</label>
+    <input type="text" name="product[weight]" class="edit_product_weight" />
+    <br />
+    <input type="submit" />
+  </form>
 </li>

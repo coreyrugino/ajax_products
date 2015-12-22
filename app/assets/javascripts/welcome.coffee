@@ -45,11 +45,26 @@ $(document).ready ->
 
   $(document).on 'click', '.product_delete', ->
     parent = $(@).parent()
-    productId = $(this).attr('id')
+    productId = $(@).attr('id')
     $.ajax baseUrl + productId,
       type: 'DELETE'
       success: (data) ->
         parent.slideToggle()
       error: (data) ->
         alert('did not delete')
-        
+
+  $(document).on 'click', '.product_edit', ->
+    productId = $(@).attr('id')
+    editForm = $(@).siblings('form')
+    $.ajax baseUrl + productId,
+      type: 'GET'
+      success: (data) ->
+        editForm.removeClass('hide')
+        editForm.children('.edit_product_name').val(data.product.name)
+        editForm.children('.edit_product_description').val(data.product.description)
+        editForm.children('.edit_product_base_price').val(data.product.base_price)
+        editForm.children('.edit_product_quanity_on_hand').val(data.product.quanity_on_hand)
+        editForm.children('.edit_product_color').val(data.product.color)
+        editForm.children('.edit_product_weight').val(data.product.weight)
+      error: (data) ->
+        alert('failure')
