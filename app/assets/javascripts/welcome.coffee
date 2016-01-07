@@ -90,7 +90,7 @@ $(document).ready ->
     # data: {product:{
     #   quanity_on_hand: 21-1
     # }}
-  # doesnt work, hits error 
+  # works, hits success, now just need to make it do something
   $(document).on 'click', '.product_buy', ->
     quanityOfProduct = $(this).siblings('.quanity_display').attr('data-quanity')
     newQuanity = parseInt(quanityOfProduct) - 1
@@ -98,8 +98,8 @@ $(document).ready ->
     $.ajax baseUrl + productId,
       type: 'PUT'
       data:
-        quanity_on_hand: newQuanity
-      debugger
+        product:
+          quanity_on_hand: newQuanity
       success: (data) ->
         alert('success buy')
       error: (data) ->
